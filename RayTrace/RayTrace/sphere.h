@@ -41,7 +41,9 @@ public:
         rec.mat_ptr = mat_ptr;
 
         return true;
-	};
+	}
+
+    virtual bool bounding_box(double time0, double time1, aabb& output_box) const override;
 
 
     sphere(vec3 cen, double r) : center(cen), radius(r){};
@@ -51,3 +53,9 @@ public:
     double radius;
     shared_ptr<material> mat_ptr;
 };
+
+
+bool sphere::bounding_box(double time0, double time1, aabb& output_box) const {
+    output_box = aabb(center - vec3(radius, radius, radius), center + vec3(radius, radius, radius));
+    return true;
+}

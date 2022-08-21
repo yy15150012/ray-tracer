@@ -130,6 +130,8 @@
     <ClCompile Include="RayTrace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aabb.h" />
+    <ClInclude Include="bvh.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="dielectric.h" />
@@ -138,6 +140,7 @@
     <ClInclude Include="lambertian.h" />
     <ClInclude Include="metal.h" />
     <ClInclude Include="material.h" />
+    <ClInclude Include="moving_sphere.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="rtweekend.h" />
     <ClInclude Include="sphere.h" />

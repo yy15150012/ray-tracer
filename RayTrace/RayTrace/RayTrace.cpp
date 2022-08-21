@@ -14,6 +14,7 @@
 #include "lambertian.h"
 #include "metal.h"
 #include "dielectric.h"
+#include "moving_sphere.h"
 #include <thread>
 using namespace std;
 
@@ -21,10 +22,6 @@ double hit_sphere(const point3& center, double radius, const ray& r);
 color ray_color(const ray& r);
 color ray_color(const ray& r, const hittable& world, int depth);
 
-
-void lab2();
-void lab3();
-void lab4();
 void lab8();
 
 static hittable_list random_scene() {
@@ -51,7 +48,8 @@ static hittable_list random_scene() {
                     //diff
                     auto albedo = vec3::random() * vec3::random();
                     sphere_material = make_shared<lambertian>(albedo);
-                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
+                    auto center2 = center + vec3(0, random_double(0, 0.5), 0);
+                    world.add(make_shared<moving_sphere>(center, center2, 0.0, 1.0, 0.2, sphere_material));
                 }
                 // 如果随机材质浮点数小于0.95，即创建金属材质，即15%的概率 
                 else if (choose_mat < 0.95) {
@@ -93,8 +91,7 @@ int main()
 }
 
 
-static void myThread(int start, int end, int image_height, int samples_per_pixel, int max_depth, camera &cam, hittable_list &world, vector<color> &res) {
-    int image_width = 1500;
+static void myThread(int start, int end, int image_height, int image_width, int samples_per_pixel, int max_depth, camera &cam, hittable_list &world, vector<color> &res) {
     for (int j = start - 1; j >= end; --j) {
         std::cerr << "\rScanlines nowing: " << j << ' ' << std::endl;
         for (int i = 0; i < image_width; ++i) {
@@ -110,38 +107,18 @@ static void myThread(int start, int end, int image_height, int samples_per_pixel
     }
 }
 
-void myyy(int x) {
-    std::cout << x << "线程已经OK" << endl;
-    x++;
-    int y = x + 100;
-}
 
 
 void lab8() {
     //Image
 
-    const auto aspect_ratio = 3.0 / 2.0;
-    const auto image_width = 1500;
+    const auto aspect_ratio = 16.0 / 9.0;
+    const auto image_width = 400;
     const auto image_height = static_cast<int>(image_width / aspect_ratio);
-    const auto samples_per_pixel = 500;
+    const auto samples_per_pixel = 50;
     const int max_depth = 50;
 
     //World
-    //hittable_list world;
-    //auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    //auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    ////auto material_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
-    //auto material_left = make_shared< dielectric>(1.5);
-    //auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 0.0);
-
-    //world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
-    //world.add(make_shared<sphere>(point3(0.0, 0.0, -1.0), 0.5, material_left));
-    //world.add(make_shared<sphere>(point3(0.0, 0.0, -1.0), -0.4, material_left));
-    //world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.5, material_left));
-    //world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), -0.4, material_left));
-    ////world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), -0.4, material_left));
-    //world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_left));
-    //world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), -0.4, material_left));
     auto world = random_scene();
 
     //Camera;
@@ -152,8 +129,7 @@ void lab8() {
     //auto dist_to_focus = (lookfrom - lookat).length();
     auto aperture = 0.1;
     //camera cam(point3(-2, 2, 1), point3(0, 0, -1), vec3(0, 1, 0), 90, aspect_ratio);
-    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
-
+    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
 
     // Render
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
@@ -164,9 +140,8 @@ void lab8() {
     vector<vector<color>> results(threads_num, vector<color>());
     int ih = image_height;
 
-
     for (int i = 0; i < threads_num; i++) {
-        threads[i] = std::thread(myThread,ih, std::max(0, ih - per_thread), image_height, samples_per_pixel, max_depth, ref(cam), ref(world), ref(results[i]));
+        threads[i] = std::thread(myThread,ih, std::max(0, ih - per_thread), image_height, image_width, samples_per_pixel, max_depth, ref(cam), ref(world), ref(results[i]));
         //threads[i] = std::thread(myyy, i);
         ih -= per_thread;
     }
@@ -175,180 +150,14 @@ void lab8() {
         t.join();
     }
 
-
-
-    int i = 0;
     for (auto& res : results) {
         for (auto& pixel_color : res) {
             write_color(std::cout, pixel_color, samples_per_pixel);
-            std::cerr << "\rScanlines remaining: " << i++ << ' ' << std::flush;
         }
     }
-
     
-
-    //for (int j = image_height - 1; j >= 0; --j) {
-    //    std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-    //    for (int i = 0; i < image_width; ++i) {
-    //        color pixel_color(0, 0, 0);
-    //        for (int s = 0; s < samples_per_pixel; ++s) {
-    //            auto u = (i + random_double()) / (image_width - 1);
-    //            auto v = (j + random_double()) / (image_height - 1);
-    //            ray r = cam.get_ray(u, v);
-    //            pixel_color += ray_color(r, world, max_depth);
-    //        }
-    //        write_color(std::cout, pixel_color, samples_per_pixel);
-    //    }
-    //}
-
-    
-
     std::cerr << "\nDone.\n";
 
-}
-
-void lab4() {
-    //Image
-
-    const auto aspect_ratio = 16.0 / 9.0;
-    const auto image_width = 400;
-    const auto image_height = static_cast<int>(image_width / aspect_ratio);
-    const auto sampler_per_pixel = 100;
-    const int max_depth = 50;
-
-    //World
-    hittable_list world;
-    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
-    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
-
-    point3 lookfrom(3, 3, 2);
-    point3 lookat(0, 0, -1);
-    vec3 vup(0, 1, 0);
-    auto dist_to_focus = (lookfrom - lookat).length();
-    auto asperture = 2.0;
-    //camera cam(point3(-2, 2, 1), point3(0, 0, -1), vec3(0, 1, 0), 90, aspect_ratio);
-    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, asperture, dist_to_focus);
-
-
-
-    // Render
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
-
-    for (int j = image_height - 1; j >= 0; j--) {
-        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-        for (int i = 0; i < image_width; i++) {
-            color pixel_color(0, 0, 0);
-            for (int s = 0; s < sampler_per_pixel; s++) {
-                auto u = (i + random_double()) / (image_width - 1);
-                auto v = (j + random_double()) / (image_height - 1);
-                ray r = cam.get_ray(u, v);
-                pixel_color += ray_color(r, world, max_depth);
-            }
-
-            write_color(std::cout, pixel_color, sampler_per_pixel);
-
-
-
-            //auto u = double(i) / (image_width - 1);
-            //auto v = double(j) / (image_height - 1);
-            //ray r(origin, lower_left_corner + u * horizontal + v * vertical);
-            //color c = ray_color(r, world);
-            //write_color(std::cout, c);
-        }
-    }
-    std::cerr << "\nDone.\n";
-
-}
-
-void lab3() {
-    //Image
-
-    const auto aspect_ratio = 16.0 / 9.0;
-    const auto image_width = 400;
-    const auto image_height = static_cast<int>(image_width / aspect_ratio);
-
-    //World
-    hittable_list world;
-    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
-    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
-
-    //Camera;
-    auto viewport_height = 2.0;
-    auto viewport_width = aspect_ratio * viewport_height;
-    auto focal_length = 1.0;
-
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
-    vec3 lower_left_corner(-2.0, -1.0, -1.0);
-    vec3 horizontal(4.0, 0.0, 0.0);
-    vec3 vertical(0.0, 2.0, 0.0);
-    vec3 origin(0.0, 0.0, 0.0);
-    for (int j = image_height - 1; j >= 0; j--) {
-        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-        for (int i = 0; i < image_width; i++) {
-            auto u = double(i) / image_width;
-            auto v = double(j) / image_height;
-            ray r(origin, lower_left_corner + u * horizontal + v * vertical);
-            color c = ray_color(r, world, 50);
-            write_color(std::cout, c);
-        }
-    }
-    std::cerr << "\nDone.\n";
-
-}
-
-void lab2() {
-    const auto aspect_ratio = 2;
-    const int image_width = 800;
-    const int image_height = static_cast<int>(image_width / aspect_ratio);
-
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
-    vec3 lower_left_corner(-2.0, -1.0, -1.0);
-    vec3 horizontal(4.0, 0.0, 0.0);
-    vec3 vertical(0.0, 2.0, 0.0);
-    vec3 origin(0.0, 0.0, 0.0);
-    for (int j = image_height - 1; j >= 0; j--) {
-        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-        for (int i = 0; i < image_width; i++) {
-            auto u = double(i) / (image_width - 1);
-            auto v = double(j) / (image_height - 1);
-            ray r(origin, lower_left_corner + u * horizontal + v * vertical);
-            color c = ray_color(r);
-            write_color(std::cout, c);
-        }
-    }
-    std::cerr << "\nDone.\n";
-}
-
-void lab1() {
-    //std::cout << "Hello World!\n";
-
- //Image
-
-    const int image_width = 256;
-    const int image_heigh = 256;
-
-    //Render
-
-    std::cout << "P3\n" << image_width << ' ' << image_heigh << "\n256\n";
-
-    for (int j = image_heigh - 1; j >= 0; j--) {
-        for (int i = 0; i < image_width; i++) {
-            //auto r = double(i) / (image_width - 1);
-            //auto g = double(j) / (image_heigh - 1);
-            //auto b = 0.25;
-
-            //int ir = static_cast<int>(255.999 * r);
-            //int ig = static_cast<int>(255.999 * g);
-            //int ib = static_cast<int>(255.999 * b);
-
-            //std::cout << ir << ' ' << ig << ' ' << ib << '\n';
-
-            color pixel_color(double(i) / (image_width - 1), double(j) / (image_heigh - 1), 0.25);
-            write_color(std::cout, pixel_color);
-        }
-    }
-
-    std::cerr << "\nDone.\n";
 }
 
 
