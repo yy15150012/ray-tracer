@@ -50,7 +50,10 @@
     <ClInclude Include="lambertian.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="matal.h">
+    <ClInclude Include="metal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dielectric.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

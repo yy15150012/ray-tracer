@@ -146,3 +146,15 @@ inline vec3 unit_vector(vec3 v) {
 inline vec3 reflect(const vec3& v, const vec3& n) {
     return v - 2 * dot(v, n) * n;
 }
+
+// 计算折射向量的代码
+// 参数 uv 为入射向量，需为单位向量，即上面推导公式的R向量
+// 参数 n 为表面法线向量，需为单位向量，即上面推导公式的N向量
+// 参数 etai_over_etat为 介质的折射率
+//  计算出射方向
+vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
+    auto cos_theta = fmin(dot(-uv, n), 1.0);
+    vec3 r_out_horizontal = etai_over_etat * (uv + cos_theta * n);
+    vec3 r_out_vertical = -std::sqrt(fabs(1.0 - r_out_horizontal.length_squared())) * n;
+    return r_out_horizontal + r_out_vertical;
+}
