@@ -13,6 +13,9 @@ struct hit_record
     vec3 normal; // 碰撞点表面法线
     double t;   // 碰撞在射线上的时间t参数
 
+    double u;//u坐标
+    double v;//v坐标
+
     shared_ptr<material> mat_ptr;
 
     bool front_face;
