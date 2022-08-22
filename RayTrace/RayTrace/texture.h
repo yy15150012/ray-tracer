@@ -33,9 +33,9 @@ public:
 
     checker_texture(shared_ptr<texture> _even, shared_ptr<texture> _odd) : even(_even), odd(_odd) {}
 
-    checker_texture(color c1, color c2) : even(make_shared<solid_color>(c1)), odd(make_shared<solid_color>(c2)){}
+    checker_texture(color c1, color c2) : even(make_shared<solid_color>(c1)), odd(make_shared<solid_color>(c2)) {}
 
-    virtual color value(double u, double v, const point3& p) const override{
+    virtual color value(double u, double v, const point3 &p) const override {
         auto sines = std::sin(5 * p.x()) * std::sin(5 * p.y()) * std::sin(5 * p.z());
         if (sines < 0) {
             return odd->value(u, v, p);
@@ -51,11 +51,15 @@ public:
 
 class noise_texture : public texture {
 public:
-    noise_texture(){}
+    noise_texture() {}
+
+    noise_texture(double sc) : scale(sc) {}
+
     virtual color value(double u, double v, const point3 &p) const override {
-        return color(1.0, 1.0, 1.0) * noise.noise(p);
+        return color(1.0, 1.0, 1.0) * noise.noise(scale * p);
     }
 
 public:
     perlin noise;
+    double scale;
 };
