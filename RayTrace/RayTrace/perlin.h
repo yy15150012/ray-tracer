@@ -28,12 +28,20 @@ public:
         delete[] perm_y;
         delete[] perm_z;
     }
-
+//    使用三线性插值的 Perlin
+//    https://zhuanlan.zhihu.com/p/77496615
     double noise(const point3 &p) const {
-        //差值
+        //差值比率，构造三线性差值时用
         auto u = p.x() - floor(p.x());
         auto v = p.y() - floor(p.y());
         auto w = p.z() - floor(p.z());
+
+
+//        Hermitian 厄米平滑改进
+        u = u * u * (3 - 2 * u);
+        v = v * v * (3 - 2 * v);
+        w = w * w * (3 - 2 * w);
+
 
         //
         auto i = static_cast<int>(floor(p.x()));
