@@ -27,6 +27,17 @@ color ray_color(const ray& r, const hittable& world, int depth);
 
 void lab8();
 
+hittable_list earth()
+{
+    auto earth_texture = make_shared<image_texture>("D:\\RayTrace\\ray-tracer\\RayTrace\\RayTrace\\earthmap.jpg");
+    auto earth_surface = make_shared<lambertian>(earth_texture);
+    auto globe = make_shared<sphere>(point3(0,0,0), 2, earth_surface);
+
+    return hittable_list(globe);
+}
+
+
+
 hittable_list two_perlin_spheres()
 {
     hittable_list objects;
@@ -151,7 +162,9 @@ void lab8() {
     //World
 //    auto world = random_scene();
     //方格球体
-    auto world = two_perlin_spheres();
+//    auto world = two_perlin_spheres();
+//地球
+    auto world = earth();
 
     //Camera;
     point3 lookfrom(13, 2, 3);

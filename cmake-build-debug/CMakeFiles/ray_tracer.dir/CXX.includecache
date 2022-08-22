@@ -136,6 +136,10 @@ D:/RayTrace/ray-tracer/RayTrace/RayTrace/ray.h
 vec3.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h
 
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtw_stb_image.h
+stb-master/stb_image.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/stb-master/stb_image.h
+
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h
 cmath
 -
@@ -152,6 +156,38 @@ D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable.h
 vec3.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h
 
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/stb-master/stb_image.h
+stb_image.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/stb-master/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/texture.h
 rtweekend.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h
@@ -159,6 +195,8 @@ vec3.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h
 perlin.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/perlin.h
+rtw_stb_image.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtw_stb_image.h
 
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h
 iostream

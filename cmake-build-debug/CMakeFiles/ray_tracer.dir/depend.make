@@ -15,8 +15,10 @@ CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTra
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/moving_sphere.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/perlin.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/ray.h
+CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/rtw_stb_image.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/rtweekend.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/sphere.h
+CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/stb-master/stb_image.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/texture.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/vec3.h
 

@@ -127,6 +127,9 @@
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/ray.h">
 			<Option target="ray_tracer"/>
 		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtw_stb_image.h">
+			<Option target="ray_tracer"/>
+		</Unit>
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h">
 			<Option target="ray_tracer"/>
 		</Unit>

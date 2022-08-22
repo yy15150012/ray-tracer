@@ -16,7 +16,9 @@ CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/moving_sphere.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/perlin.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/ray.h
+ D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtw_stb_image.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/sphere.h
+ D:/RayTrace/ray-tracer/RayTrace/RayTrace/stb-master/stb_image.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/texture.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h

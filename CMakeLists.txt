@@ -22,4 +22,4 @@ add_executable(ray_tracer
         RayTrace/RayTrace/rtweekend.h
         RayTrace/RayTrace/sphere.h
         RayTrace/RayTrace/texture.h
-        RayTrace/RayTrace/vec3.h RayTrace/RayTrace/Timer.h RayTrace/RayTrace/perlin.h)
+        RayTrace/RayTrace/vec3.h RayTrace/RayTrace/Timer.h RayTrace/RayTrace/perlin.h RayTrace/RayTrace/rtw_stb_image.h)
