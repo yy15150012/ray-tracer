@@ -166,7 +166,7 @@ void lab8() {
 
 
     ofstream outfile;
-    outfile.open("·½¸ñÇòÌå.ppm", ios::out);
+    outfile.open("myImg.ppm", ios::out);
     cout << getTime() << endl;
     // Render
     outfile << "P3\n" << image_width << " " << image_height << "\n255\n";
