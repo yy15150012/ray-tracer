@@ -1,0 +1,3 @@
+D:/RayTrace/ray-tracer/cmake-build-debug/CMakeFiles/ray_tracer.dir
+D:/RayTrace/ray-tracer/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/RayTrace/ray-tracer/cmake-build-debug/CMakeFiles/rebuild_cache.dir

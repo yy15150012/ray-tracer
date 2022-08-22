@@ -1,4 +1,4 @@
-ï»¿// RayTrace.cpp : æ­¤æ–‡ä»¶åŒ…å« "main" å‡½æ•°ã€‚ç¨‹åºæ‰§è¡Œå°†åœ¨æ­¤å¤„å¼€å§‹å¹¶ç»“æŸã€‚
+// RayTrace.cpp : ´ËÎÄ¼ş°üº¬ "main" º¯Êı¡£³ÌĞòÖ´ĞĞ½«ÔÚ´Ë´¦¿ªÊ¼²¢½áÊø¡£
 //
 
 #include <iostream>
@@ -16,6 +16,9 @@
 #include "dielectric.h"
 #include "moving_sphere.h"
 #include <thread>
+#include <fstream>
+#include "Timer.h"
+
 using namespace std;
 
 double hit_sphere(const point3& center, double radius, const ray& r);
@@ -24,11 +27,35 @@ color ray_color(const ray& r, const hittable& world, int depth);
 
 void lab8();
 
+hittable_list two_perlin_spheres()
+{
+    hittable_list objects;
+
+    auto pertext = make_shared<noise_texture>();
+    objects.add(make_shared<sphere>(point3(0,-1000,0), 1000, make_shared<lambertian>(pertext)));
+    objects.add(make_shared<sphere>(point3(0, 2, 0), 2, make_shared<lambertian>(pertext)));
+
+    return objects;
+}
+
+
+static hittable_list two_spheres() {
+    hittable_list objects;
+    auto checker = make_shared<checker_texture>(color(0.2, 0.3, 0.1), color(0.9, 0.9, 0.9));
+
+//    objects.add(make_shared<sphere>(point3(0, -10, 0), 10, make_shared<lambertian>(checker)));
+    objects.add(make_shared<sphere>(point3(0, 10, 0), 10, make_shared<lambertian>(checker)));
+
+    return objects;
+}
+
+
 static hittable_list random_scene() {
     hittable_list world;
 
-    // åœ°è¡¨æè´¨ï¼šæ•£å°„å…‰æè´¨ï¼Œç°è‰²
-    auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
+    // µØ±í²ÄÖÊ£ºÉ¢Éä¹â²ÄÖÊ£¬»ÒÉ«
+//    auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
+    auto ground_material = make_shared<lambertian>(make_shared<checker_texture>(color(0.2, 0.3, 0.1), color(0.9,0.9,0.9)));
 
     world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
 
@@ -42,7 +69,7 @@ static hittable_list random_scene() {
             if ((center - point3(4, 0.2, 0)).length() > 0.9) {
                 shared_ptr<material> sphere_material;
 
-                // å¦‚æœéšæœºæè´¨æµ®ç‚¹æ•°å°äº0.8ï¼Œå³åˆ›å»ºæ•£å°„æè´¨ï¼Œå³80%çš„æ¦‚ç‡ 
+                // Èç¹ûËæ»ú²ÄÖÊ¸¡µãÊıĞ¡ÓÚ0.8£¬¼´´´½¨É¢Éä²ÄÖÊ£¬¼´80%µÄ¸ÅÂÊ 
                 if (choose_mat < 0.8) {
 
                     //diff
@@ -51,7 +78,7 @@ static hittable_list random_scene() {
                     auto center2 = center + vec3(0, random_double(0, 0.5), 0);
                     world.add(make_shared<moving_sphere>(center, center2, 0.0, 1.0, 0.2, sphere_material));
                 }
-                // å¦‚æœéšæœºæè´¨æµ®ç‚¹æ•°å°äº0.95ï¼Œå³åˆ›å»ºé‡‘å±æè´¨ï¼Œå³15%çš„æ¦‚ç‡ 
+                // Èç¹ûËæ»ú²ÄÖÊ¸¡µãÊıĞ¡ÓÚ0.95£¬¼´´´½¨½ğÊô²ÄÖÊ£¬¼´15%µÄ¸ÅÂÊ 
                 else if (choose_mat < 0.95) {
                     //metal
                     auto albedo = vec3::random();
@@ -59,7 +86,7 @@ static hittable_list random_scene() {
                     sphere_material = make_shared<metal>(albedo, fuzz);
                     world.add(make_shared<sphere>(center, 0.2, sphere_material));
                 }
-                // å‰©ä¸‹çš„5%çš„æ¦‚ç‡åˆ›å»ºç»ç’ƒçƒ 
+                // Ê£ÏÂµÄ5%µÄ¸ÅÂÊ´´½¨²£Á§Çò 
                 else {
                     //glass
                     sphere_material = make_shared<dielectric>(1.5);
@@ -69,16 +96,16 @@ static hittable_list random_scene() {
 
         }
     }
-    // ç»ç’ƒå¤§çƒ
+    // ²£Á§´óÇò
     auto material1 = make_shared<dielectric>(1.5);
     world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
     //world.add(make_shared<sphere>(point3(0, 1, 0), -0.9, material1));
 
-    // æ•£å°„å¤§çƒ
+    // É¢Éä´óÇò
     auto material2 = make_shared<lambertian>(color(0.4, 0.2, 0.1));
     world.add(make_shared<sphere>(point3(-4, 1, 0), 1.0, material2));
 
-    // é‡‘å±å¤§çƒ
+    // ½ğÊô´óÇò
     auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
     world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
 
@@ -110,16 +137,21 @@ static void myThread(int start, int end, int image_height, int image_width, int 
 
 
 void lab8() {
+
+
+
     //Image
 
     const auto aspect_ratio = 16.0 / 9.0;
-    const auto image_width = 400;
+    const auto image_width = 1600;
     const auto image_height = static_cast<int>(image_width / aspect_ratio);
     const auto samples_per_pixel = 50;
     const int max_depth = 50;
 
     //World
-    auto world = random_scene();
+//    auto world = random_scene();
+    //·½¸ñÇòÌå
+    auto world = two_perlin_spheres();
 
     //Camera;
     point3 lookfrom(13, 2, 3);
@@ -127,12 +159,18 @@ void lab8() {
     vec3 vup(0, 1, 0);
     auto dist_to_focus = 10;
     //auto dist_to_focus = (lookfrom - lookat).length();
-    auto aperture = 0.1;
+//    auto aperture = 0.1;
+    auto aperture = 0.0;
     //camera cam(point3(-2, 2, 1), point3(0, 0, -1), vec3(0, 1, 0), 90, aspect_ratio);
     camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
 
+
+    ofstream outfile;
+    outfile.open("·½¸ñÇòÌå.ppm", ios::out);
+    cout << getTime() << endl;
     // Render
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
+    outfile << "P3\n" << image_width << " " << image_height << "\n255\n";
+
 
     int threads_num = 10;
     int per_thread = (image_height - 1) / threads_num + 1;
@@ -142,7 +180,6 @@ void lab8() {
 
     for (int i = 0; i < threads_num; i++) {
         threads[i] = std::thread(myThread,ih, std::max(0, ih - per_thread), image_height, image_width, samples_per_pixel, max_depth, ref(cam), ref(world), ref(results[i]));
-        //threads[i] = std::thread(myyy, i);
         ih -= per_thread;
     }
 
@@ -152,9 +189,10 @@ void lab8() {
 
     for (auto& res : results) {
         for (auto& pixel_color : res) {
-            write_color(std::cout, pixel_color, samples_per_pixel);
+            write_color(outfile, pixel_color, samples_per_pixel);
         }
     }
+    outfile.close();
     
     std::cerr << "\nDone.\n";
 
@@ -219,7 +257,7 @@ color ray_color(const ray& r) {
 //}
 
 
-//é‡‘å±æè´¨
+//½ğÊô²ÄÖÊ
 color ray_color(const ray& r, const hittable& world, int depth) {
     hit_record rec;
 
@@ -247,13 +285,13 @@ color ray_color(const ray& r, const hittable& world, int depth) {
 
 
 
-// è¿è¡Œç¨‹åº: Ctrl + F5 æˆ–è°ƒè¯• >â€œå¼€å§‹æ‰§è¡Œ(ä¸è°ƒè¯•)â€èœå•
-// è°ƒè¯•ç¨‹åº: F5 æˆ–è°ƒè¯• >â€œå¼€å§‹è°ƒè¯•â€èœå•
+// ÔËĞĞ³ÌĞò: Ctrl + F5 »òµ÷ÊÔ >¡°¿ªÊ¼Ö´ĞĞ(²»µ÷ÊÔ)¡±²Ëµ¥
+// µ÷ÊÔ³ÌĞò: F5 »òµ÷ÊÔ >¡°¿ªÊ¼µ÷ÊÔ¡±²Ëµ¥
 
-// å…¥é—¨ä½¿ç”¨æŠ€å·§: 
-//   1. ä½¿ç”¨è§£å†³æ–¹æ¡ˆèµ„æºç®¡ç†å™¨çª—å£æ·»åŠ /ç®¡ç†æ–‡ä»¶
-//   2. ä½¿ç”¨å›¢é˜Ÿèµ„æºç®¡ç†å™¨çª—å£è¿æ¥åˆ°æºä»£ç ç®¡ç†
-//   3. ä½¿ç”¨è¾“å‡ºçª—å£æŸ¥çœ‹ç”Ÿæˆè¾“å‡ºå’Œå…¶ä»–æ¶ˆæ¯
-//   4. ä½¿ç”¨é”™è¯¯åˆ—è¡¨çª—å£æŸ¥çœ‹é”™è¯¯
-//   5. è½¬åˆ°â€œé¡¹ç›®â€>â€œæ·»åŠ æ–°é¡¹â€ä»¥åˆ›å»ºæ–°çš„ä»£ç æ–‡ä»¶ï¼Œæˆ–è½¬åˆ°â€œé¡¹ç›®â€>â€œæ·»åŠ ç°æœ‰é¡¹â€ä»¥å°†ç°æœ‰ä»£ç æ–‡ä»¶æ·»åŠ åˆ°é¡¹ç›®
-//   6. å°†æ¥ï¼Œè‹¥è¦å†æ¬¡æ‰“å¼€æ­¤é¡¹ç›®ï¼Œè¯·è½¬åˆ°â€œæ–‡ä»¶â€>â€œæ‰“å¼€â€>â€œé¡¹ç›®â€å¹¶é€‰æ‹© .sln æ–‡ä»¶
+// ÈëÃÅÊ¹ÓÃ¼¼ÇÉ: 
+//   1. Ê¹ÓÃ½â¾ö·½°¸×ÊÔ´¹ÜÀíÆ÷´°¿ÚÌí¼Ó/¹ÜÀíÎÄ¼ş
+//   2. Ê¹ÓÃÍÅ¶Ó×ÊÔ´¹ÜÀíÆ÷´°¿ÚÁ¬½Óµ½Ô´´úÂë¹ÜÀí
+//   3. Ê¹ÓÃÊä³ö´°¿Ú²é¿´Éú³ÉÊä³öºÍÆäËûÏûÏ¢
+//   4. Ê¹ÓÃ´íÎóÁĞ±í´°¿Ú²é¿´´íÎó
+//   5. ×ªµ½¡°ÏîÄ¿¡±>¡°Ìí¼ÓĞÂÏî¡±ÒÔ´´½¨ĞÂµÄ´úÂëÎÄ¼ş£¬»ò×ªµ½¡°ÏîÄ¿¡±>¡°Ìí¼ÓÏÖÓĞÏî¡±ÒÔ½«ÏÖÓĞ´úÂëÎÄ¼şÌí¼Óµ½ÏîÄ¿
+//   6. ½«À´£¬ÈôÒªÔÙ´Î´ò¿ª´ËÏîÄ¿£¬Çë×ªµ½¡°ÎÄ¼ş¡±>¡°´ò¿ª¡±>¡°ÏîÄ¿¡±²¢Ñ¡Ôñ .sln ÎÄ¼ş

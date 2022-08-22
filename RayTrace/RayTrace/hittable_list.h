@@ -5,7 +5,7 @@
 #include "hittable.h"
 #include <memory>
 #include <vector>
-
+#include "aabb.h"
 using std::shared_ptr;
 using std::make_shared;
 
@@ -22,7 +22,7 @@ public:
 
 	void clear() { objects.clear(); }
 
-	// ±¾ÁÐ±íÓëÉäÏßÅö×²º¯Êý
+	// æœ¬åˆ—è¡¨ä¸Žå°„çº¿ç¢°æ’žå‡½æ•°
 	bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
 		hit_record temp_rec;
 		bool hit_anything = false;
@@ -30,8 +30,8 @@ public:
 
 		for (const auto& object : objects) {
 
-			// Èç¹ûÓÐÒ»¸ö¶ÔÏóÓëÉäÏßÏà½»ÁË£¬Ôò°ÑÏà½»µãµÄÊ±¼ät¼ÇÂ¼ÎªÏÂ´ÎÏà½»µÄ×î´ót£¬
-// ÒÔ±ã½ö½öÇó½â×î½üµÄÏà½»
+			// å¦‚æžœæœ‰ä¸€ä¸ªå¯¹è±¡ä¸Žå°„çº¿ç›¸äº¤äº†ï¼Œåˆ™æŠŠç›¸äº¤ç‚¹çš„æ—¶é—´tè®°å½•ä¸ºä¸‹æ¬¡ç›¸äº¤çš„æœ€å¤§tï¼Œ
+// ä»¥ä¾¿ä»…ä»…æ±‚è§£æœ€è¿‘çš„ç›¸äº¤
 			if (object->hit(r, t_min, closest_so_far, temp_rec)) {
 				hit_anything = true;
 				closest_so_far = temp_rec.t;
@@ -53,7 +53,7 @@ bool hittable_list::bounding_box(
 	bool first_box = true;
 	for (const auto& object : objects) {
 		if (!object->bounding_box(time0, time1, temp_box)) return false;
-		output_box = first_box ? temp_box : surrounding_box(output_box, temp_box);
+		output_box = first_box ? temp_box : aabb::surrounding_box(output_box, temp_box);
 		first_box = false;
 	}
 	return true;

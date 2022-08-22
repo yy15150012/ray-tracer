@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="ray_tracer"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/RayTrace/ray-tracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ray_tracer">
+				<Option output="D:/RayTrace/ray-tracer/cmake-build-debug/ray_tracer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/RayTrace/ray-tracer/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/RayTrace/ray-tracer/RayTrace/RayTrace"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 ray_tracer"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ray_tracer/fast">
+				<Option output="D:/RayTrace/ray-tracer/cmake-build-debug/ray_tracer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/RayTrace/ray-tracer/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/RayTrace/ray-tracer/RayTrace/RayTrace"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 ray_tracer/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/RayTrace/ray-tracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/RayTrace/ray-tracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/RayTrace/ray-tracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/RayTrace.cpp">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/Timer.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/aabb.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/bvh.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/camera.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/color.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/dielectric.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable_list.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/lambertian.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/material.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/metal.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/moving_sphere.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/perlin.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/ray.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/sphere.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/texture.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -17,11 +17,11 @@ public:
         auto c = oc.length_squared() - radius * radius;
 
         auto discriminant = half_b * half_b - a * c;
-        // Èç¹ûº¯ÊýÎÞ½âÔòÖ±½Ó·µ»Øfalse
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½false
         if (discriminant < 0) return false;
         auto sqrtd = sqrt(discriminant);
 
-        // ²éÕÒÔÚ¿É½ÓÊÜµÄt·¶Î§ÄÚ£¬×î½üµÄÅö×²µã
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿É½ï¿½ï¿½Üµï¿½tï¿½ï¿½Î§ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½
         auto root = (-half_b - sqrtd) / a;
         if (root < t_min || t_max < root) {
             root = (-half_b + sqrtd) / a;
@@ -29,11 +29,11 @@ public:
                 return false;
         }
 
-        // Åö×²Ê±¼ä
+        // ï¿½ï¿½×²Ê±ï¿½ï¿½
         rec.t = root;
-        // Åö×²µã
+        // ï¿½ï¿½×²ï¿½ï¿½
         rec.p = r.at(rec.t);
-        // Åö×²·¨Ïß
+        // ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½
 
         vec3 outward_normal = (rec.p - center) / radius;
 
@@ -65,7 +65,7 @@ public:
         //     <0 0 1> yields <0.25 0.50>       < 0  0 -1> yields <0.75 0.50>
 
         auto theta = std::acos(-p.y());
-        auto phi = std::atan2(-p.z(), p.x()) + pi;
+        auto phi = std::atan2(-p.z(), p.x()) + PI;
 
         u = phi / (2 * PI);
         v = theta / PI;

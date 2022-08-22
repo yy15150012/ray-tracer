@@ -25,7 +25,7 @@ public:
     }
 
 public:
-	// É¢ÉäË¥¼õÖµ ·´ÉäÂÊ Âş·´ÉäÏµÊı;
+	// æ•£å°„è¡°å‡å€¼ åå°„ç‡ æ¼«åå°„ç³»æ•°;
     //color albedo;
     shared_ptr<texture> albedo;
 };
