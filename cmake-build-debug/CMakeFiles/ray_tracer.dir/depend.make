@@ -7,6 +7,7 @@ CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTra
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/camera.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/color.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/dielectric.h
+CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/diffuse_light.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/hittable.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/hittable_list.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/lambertian.h
@@ -21,4 +22,5 @@ CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTra
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/stb-master/stb_image.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/texture.h
 CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/vec3.h
+CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj: ../RayTrace/RayTrace/xy_rect.h
 

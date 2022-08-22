@@ -18,32 +18,50 @@
 #include <thread>
 #include <fstream>
 #include "Timer.h"
+#include "xy_rect.h"
+#include "diffuse_light.h"
 
 using namespace std;
 
-double hit_sphere(const point3& center, double radius, const ray& r);
-color ray_color(const ray& r);
-color ray_color(const ray& r, const hittable& world, int depth);
+double hit_sphere(const point3 &center, double radius, const ray &r);
+
+color ray_color(const ray &r, const color &background, const hittable &world, int depth);
 
 void lab8();
 
-hittable_list earth()
-{
-    auto earth_texture = make_shared<image_texture>("D:\\RayTrace\\ray-tracer\\RayTrace\\RayTrace\\earthmap.jpg");
-    auto earth_surface = make_shared<lambertian>(earth_texture);
-    auto globe = make_shared<sphere>(point3(0,0,0), 2, earth_surface);
-
-    return hittable_list(globe);
-}
 
 
-
-hittable_list two_perlin_spheres()
+hittable_list simple_light()
 {
     hittable_list objects;
 
     auto pertext = make_shared<noise_texture>(4);
     objects.add(make_shared<sphere>(point3(0,-1000,0), 1000, make_shared<lambertian>(pertext)));
+    objects.add(make_shared<sphere>(point3(0,2,0), 2, make_shared<lambertian>(pertext)));
+
+    auto difflight = make_shared<diffuse_light>(color(4,4,4));
+    objects.add(make_shared<xy_rect>(3, 5, 1, 3, -2, difflight));
+    objects.add(make_shared<sphere>(point3(0,7,0), 2, difflight));
+
+    return objects;
+}
+
+
+
+hittable_list earth() {
+    auto earth_texture = make_shared<image_texture>("D:\\RayTrace\\ray-tracer\\RayTrace\\RayTrace\\earthmap.jpg");
+    auto earth_surface = make_shared<lambertian>(earth_texture);
+    auto globe = make_shared<sphere>(point3(0, 0, 0), 2, earth_surface);
+
+    return hittable_list(globe);
+}
+
+
+hittable_list two_perlin_spheres() {
+    hittable_list objects;
+
+    auto pertext = make_shared<noise_texture>(4);
+    objects.add(make_shared<sphere>(point3(0, -1000, 0), 1000, make_shared<lambertian>(pertext)));
     objects.add(make_shared<sphere>(point3(0, 2, 0), 2, make_shared<lambertian>(pertext)));
 
     return objects;
@@ -66,7 +84,8 @@ static hittable_list random_scene() {
 
     // 地表材质：散射光材质，灰色
 //    auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
-    auto ground_material = make_shared<lambertian>(make_shared<checker_texture>(color(0.2, 0.3, 0.1), color(0.9,0.9,0.9)));
+    auto ground_material = make_shared<lambertian>(
+            make_shared<checker_texture>(color(0.2, 0.3, 0.1), color(0.9, 0.9, 0.9)));
 
     world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
 
@@ -74,7 +93,7 @@ static hittable_list random_scene() {
         for (int j = -11; j < 11; j++) {
 
             auto choose_mat = random_double();
-            
+
             point3 center(i + 0.9 * random_double(), 0.2, j + 0.9 * random_double());
 
             if ((center - point3(4, 0.2, 0)).length() > 0.9) {
@@ -89,7 +108,7 @@ static hittable_list random_scene() {
                     auto center2 = center + vec3(0, random_double(0, 0.5), 0);
                     world.add(make_shared<moving_sphere>(center, center2, 0.0, 1.0, 0.2, sphere_material));
                 }
-                // 如果随机材质浮点数小于0.95，即创建金属材质，即15%的概率 
+                    // 如果随机材质浮点数小于0.95，即创建金属材质，即15%的概率
                 else if (choose_mat < 0.95) {
                     //metal
                     auto albedo = vec3::random();
@@ -97,7 +116,7 @@ static hittable_list random_scene() {
                     sphere_material = make_shared<metal>(albedo, fuzz);
                     world.add(make_shared<sphere>(center, 0.2, sphere_material));
                 }
-                // 剩下的5%的概率创建玻璃球 
+                    // 剩下的5%的概率创建玻璃球
                 else {
                     //glass
                     sphere_material = make_shared<dielectric>(1.5);
@@ -123,13 +142,14 @@ static hittable_list random_scene() {
     return world;
 }
 
-int main()
-{
+int main() {
     lab8();
 }
 
 
-static void myThread(int start, int end, int image_height, int image_width, int samples_per_pixel, int max_depth, camera &cam, hittable_list &world, vector<color> &res) {
+static void
+myThread(int start, int end, int image_height, int image_width, int samples_per_pixel, int max_depth, color &background,
+         camera &cam, hittable_list &world, vector<color> &res) {
     for (int j = start - 1; j >= end; --j) {
         std::cerr << "\rScanlines nowing: " << j << ' ' << std::endl;
         for (int i = 0; i < image_width; ++i) {
@@ -138,13 +158,12 @@ static void myThread(int start, int end, int image_height, int image_width, int 
                 auto u = (i + random_double()) / (image_width - 1);
                 auto v = (j + random_double()) / (image_height - 1);
                 ray r = cam.get_ray(u, v);
-                pixel_color += ray_color(r, world, max_depth);
+                pixel_color += ray_color(r, background, world, max_depth);
             }
             res.push_back(pixel_color);
         }
     }
 }
-
 
 
 void lab8() {
@@ -164,16 +183,21 @@ void lab8() {
     //方格球体
 //    auto world = two_perlin_spheres();
 //地球
-    auto world = earth();
+//    auto world = earth();
+
+    auto world = simple_light();
 
     //Camera;
-    point3 lookfrom(13, 2, 3);
-    point3 lookat(0, 0, 0);
+    point3 lookfrom(26, 3, 6);
+    point3 lookat(0, 2, 0);
     vec3 vup(0, 1, 0);
     auto dist_to_focus = 10;
     //auto dist_to_focus = (lookfrom - lookat).length();
 //    auto aperture = 0.1;
     auto aperture = 0.0;
+
+    color background(0, 0, 0);
+
     //camera cam(point3(-2, 2, 1), point3(0, 0, -1), vec3(0, 1, 0), 90, aspect_ratio);
     camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
 
@@ -192,29 +216,28 @@ void lab8() {
     int ih = image_height;
 
     for (int i = 0; i < threads_num; i++) {
-        threads[i] = std::thread(myThread,ih, std::max(0, ih - per_thread), image_height, image_width, samples_per_pixel, max_depth, ref(cam), ref(world), ref(results[i]));
+        threads[i] = std::thread(myThread, ih, std::max(0, ih - per_thread), image_height, image_width,
+                                 samples_per_pixel, max_depth, ref(background), ref(cam), ref(world), ref(results[i]));
         ih -= per_thread;
     }
 
-    for (auto& t : threads) {
+    for (auto &t : threads) {
         t.join();
     }
 
-    for (auto& res : results) {
-        for (auto& pixel_color : res) {
+    for (auto &res : results) {
+        for (auto &pixel_color : res) {
             write_color(outfile, pixel_color, samples_per_pixel);
         }
     }
     outfile.close();
-    
+
     std::cerr << "\nDone.\n";
 
 }
 
 
-
-
-inline double hit_sphere(const point3& center, double radius, const ray& r) {
+inline double hit_sphere(const point3 &center, double radius, const ray &r) {
     vec3 oc = r.origin() - center;
     auto a = dot(r.direction(), r.direction());
     auto b = 2.0 * dot(oc, r.direction());
@@ -222,13 +245,12 @@ inline double hit_sphere(const point3& center, double radius, const ray& r) {
     auto discriminant = b * b - 4 * a * c;
     if (discriminant < 0) {
         return -1.0;
-    }
-    else {
+    } else {
         return (-b - sqrt(discriminant)) / (2.0 * a);
     }
 }
 
-color ray_color(const ray& r) {
+color ray_color(const ray &r) {
     auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
     if (t > 0.0) {
         vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
@@ -271,7 +293,7 @@ color ray_color(const ray& r) {
 
 
 //金属材质
-color ray_color(const ray& r, const hittable& world, int depth) {
+/*color ray_color(const ray& r, const hittable& world, int depth) {
     hit_record rec;
 
     // If we've exceeded the ray bounce limit, no more light is gathered.
@@ -289,11 +311,30 @@ color ray_color(const ray& r, const hittable& world, int depth) {
     vec3 unit_direction = unit_vector(r.direction());
     auto t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
+}*/
+
+
+
+color ray_color(const ray &r, const color &background, const hittable &world, int depth) {
+    hit_record rec;
+
+    //如果我们已经超过了光线反弹的极限，就不会有更多的光线被收集。
+    if (depth <= 0)
+        return color(0, 0, 0);
+
+    // 如果光线没有击中任何物体，则返回背景颜色。
+    if (!world.hit(r, 0.001, infinity, rec))
+        return background;
+
+    ray scattered;
+    color attenuation;
+    color emitted = rec.mat_ptr->emitted(rec.u, rec.v, rec.p);
+
+    if (!rec.mat_ptr->scatter(r, rec, attenuation, scattered))
+        return emitted;
+
+    return emitted + attenuation * ray_color(scattered, background, world, depth - 1);
 }
-
-
-
-
 
 
 

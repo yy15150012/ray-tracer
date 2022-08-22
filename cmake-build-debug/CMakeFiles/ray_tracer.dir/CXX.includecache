@@ -39,6 +39,10 @@ fstream
 -
 Timer.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/Timer.h
+xy_rect.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/xy_rect.h
+diffuse_light.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/diffuse_light.h
 
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/Timer.h
 ctime
@@ -79,6 +83,12 @@ ray.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/ray.h
 hittable.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable.h
+
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/diffuse_light.h
+material.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/material.h
+texture.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/texture.h
 
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable.h
 ray.h
@@ -211,4 +221,18 @@ random
 -
 rtweekend.h
 D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h
+
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/xy_rect.h
+rtweekend.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/rtweekend.h
+hittable.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable.h
+material.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/material.h
+vec3.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h
+aabb.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/aabb.h
+ray.h
+D:/RayTrace/ray-tracer/RayTrace/RayTrace/ray.h
 
