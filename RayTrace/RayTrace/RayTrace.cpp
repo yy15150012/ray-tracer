@@ -100,7 +100,6 @@ hittable_list final_scene() {
     return objects;
 }
 
-
 hittable_list cornell_box() {
     hittable_list objects;
 
@@ -146,7 +145,6 @@ hittable_list simple_light() {
     return objects;
 }
 
-
 hittable_list earth() {
     auto earth_texture = make_shared<image_texture>("D:\\RayTrace\\ray-tracer\\RayTrace\\RayTrace\\earthmap.jpg");
     auto earth_surface = make_shared<lambertian>(earth_texture);
@@ -154,7 +152,6 @@ hittable_list earth() {
 
     return hittable_list(globe);
 }
-
 
 hittable_list two_perlin_spheres() {
     hittable_list objects;
@@ -166,8 +163,7 @@ hittable_list two_perlin_spheres() {
     return objects;
 }
 
-
-static hittable_list two_spheres() {
+hittable_list two_spheres() {
     hittable_list objects;
     auto checker = make_shared<checker_texture>(color(0.2, 0.3, 0.1), color(0.9, 0.9, 0.9));
 
@@ -177,8 +173,7 @@ static hittable_list two_spheres() {
     return objects;
 }
 
-
-static hittable_list random_scene() {
+hittable_list random_scene() {
     hittable_list world;
 
     // 地表材质：散射光材质，灰色
@@ -246,8 +241,7 @@ int main() {
 }
 
 
-static void
-myThread(int start, int end, int image_height, int image_width, int samples_per_pixel, int max_depth, color &background,
+void myThread(int start, int end, int image_height, int image_width, int samples_per_pixel, int max_depth, color &background,
          camera &cam, hittable_list &world, vector<color> &res) {
     for (int j = start - 1; j >= end; --j) {
         std::cerr << "\rScanlines nowing: " << j << ' ' << std::endl;
@@ -267,15 +261,13 @@ myThread(int start, int end, int image_height, int image_width, int samples_per_
 
 void lab8() {
 
-
-
     //Image
 
 //    const auto aspect_ratio = 16.0 / 9.0;
     const auto aspect_ratio = 1.0;
-    const auto image_width = 200;
+    const auto image_width = 1600;
     const auto image_height = static_cast<int>(image_width / aspect_ratio);
-    const auto samples_per_pixel = 200;
+    const auto samples_per_pixel = 20;
     const int max_depth = 50;
 
     //World
