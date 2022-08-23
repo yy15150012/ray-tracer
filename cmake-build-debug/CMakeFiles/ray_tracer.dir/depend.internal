@@ -5,8 +5,12 @@ CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/RayTrace.cpp
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/Timer.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/aabb.h
+ D:/RayTrace/ray-tracer/RayTrace/RayTrace/aarect.h
+ D:/RayTrace/ray-tracer/RayTrace/RayTrace/box.h
+ D:/RayTrace/ray-tracer/RayTrace/RayTrace/bvh.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/camera.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/color.h
+ D:/RayTrace/ray-tracer/RayTrace/RayTrace/constant_medium.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/dielectric.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/diffuse_light.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/hittable.h
@@ -23,4 +27,3 @@ CMakeFiles/ray_tracer.dir/RayTrace/RayTrace/RayTrace.cpp.obj
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/stb-master/stb_image.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/texture.h
  D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h
- D:/RayTrace/ray-tracer/RayTrace/RayTrace/xy_rect.h

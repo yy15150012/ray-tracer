@@ -1,3 +1,4 @@
+#pragma once
 #ifndef RTWEEKEND_STB_IMAGE_H
 #define RTWEEKEND_STB_IMAGE_H
 

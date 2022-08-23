@@ -14,7 +14,7 @@ public:
 
     point3 max() const { return maximum; }
 
-    //原始版本
+    //原始锟芥本
     //bool hit(const ray& r, double t_min, double t_max) const{
     //	for (int i = 0; i < 3; i++) {
     //		auto t0 = fmin((minimum[i] - r.origin()[i]) / r.direction()[i],
@@ -30,7 +30,7 @@ public:
     //	return true;
     //}
 
-    //优化版本
+    //锟脚伙拷锟芥本
     bool hit(const ray &r, double t_min, double t_max) const {
         for (int i = 0; i < 3; i++) {
             auto invD = 1.0 / r.direction()[i];
@@ -51,24 +51,21 @@ public:
         return true;
     }
 
-    static aabb surrounding_box(aabb box0, aabb box1);
-
-
 public:
     point3 minimum, maximum;
 };
 
+aabb surrounding_box(aabb box0, aabb box1)
+{
+    point3 small(fmin(box0.min().x(), box1.min().x()),
+                 fmin(box0.min().y(), box1.min().y()),
+                 fmin(box0.min().z(), box1.min().z()));
 
-aabb aabb::surrounding_box(aabb box0, aabb box1) {
-    point3 small(
-            std::fmin(box0.min().x(), box1.min().x()),
-            std::fmin(box0.min().y(), box1.min().y()),
-            std::fmin(box0.min().z(), box1.min().z()));
+    point3 big(fmax(box0.max().x(), box1.max().x()),
+               fmax(box0.max().y(), box1.max().y()),
+               fmax(box0.max().z(), box1.max().z()));
 
-    point3 big(
-            std::fmin(box0.max().x(), box1.max().x()),
-            std::fmin(box0.max().y(), box1.max().y()),
-            std::fmin(box0.max().z(), box1.max().z()));
-
-    return aabb(small, big);
+    return aabb(small,big);
 }
+
+

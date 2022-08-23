@@ -91,6 +91,12 @@
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/aabb.h">
 			<Option target="ray_tracer"/>
 		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/aarect.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/box.h">
+			<Option target="ray_tracer"/>
+		</Unit>
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/bvh.h">
 			<Option target="ray_tracer"/>
 		</Unit>
@@ -98,6 +104,9 @@
 			<Option target="ray_tracer"/>
 		</Unit>
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/color.h">
+			<Option target="ray_tracer"/>
+		</Unit>
+		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/constant_medium.h">
 			<Option target="ray_tracer"/>
 		</Unit>
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/dielectric.h">
@@ -143,9 +152,6 @@
 			<Option target="ray_tracer"/>
 		</Unit>
 		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/vec3.h">
-			<Option target="ray_tracer"/>
-		</Unit>
-		<Unit filename="D:/RayTrace/ray-tracer/RayTrace/RayTrace/xy_rect.h">
 			<Option target="ray_tracer"/>
 		</Unit>
 		<Unit filename="D:/RayTrace/ray-tracer/CMakeLists.txt">

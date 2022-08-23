@@ -28,11 +28,11 @@ public:
 		auto c = oc.length_squared() - radius * radius;
 
 		auto discriminant = half_b * half_b - a * c;
-		// Èç¹ûº¯ÊýÎÞ½âÔòÖ±½Ó·µ»Øfalse
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½false
 		if (discriminant < 0) return false;
 		auto sqrtd = sqrt(discriminant);
 
-		// ²éÕÒÔÚ¿É½ÓÊÜµÄt·¶Î§ÄÚ£¬×î½üµÄÅö×²µã
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿É½ï¿½ï¿½Üµï¿½tï¿½ï¿½Î§ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½
 		auto root = (-half_b - sqrtd) / a;
 		if (root < t_min || t_max < root) {
 			root = (-half_b + sqrtd) / a;
@@ -40,11 +40,11 @@ public:
 				return false;
 		}
 
-		// Åö×²Ê±¼ä
+		// ï¿½ï¿½×²Ê±ï¿½ï¿½
 		rec.t = root;
-		// Åö×²µã
+		// ï¿½ï¿½×²ï¿½ï¿½
 		rec.p = r.at(rec.t);
-		// Åö×²·¨Ïß
+		// ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½
 
 		vec3 outward_normal = (rec.p - center(r.time())) / radius;
 
@@ -71,10 +71,9 @@ public:
 
 };
 
-bool moving_sphere::bounding_box(
-	double _time0, double _time1, aabb& output_box) const {
+bool moving_sphere::bounding_box(double _time0, double _time1, aabb& output_box) const {
 	aabb box0(center(_time0) - vec3(radius, radius, radius), center(_time0) + vec3(radius, radius, radius));
 	aabb box1(center(_time1) - vec3(radius, radius, radius), center(_time1) + vec3(radius, radius, radius));
-	output_box = aabb::surrounding_box(box0, box1);
+	output_box = surrounding_box(box0, box1);
 	return true;
 };

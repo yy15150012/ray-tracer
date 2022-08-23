@@ -1,7 +1,7 @@
 //
 // Created by Administrator on 2022/8/23.
 //
-
+#pragma once
 #ifndef RAY_TRACER_DIFFUSE_LIGHT_H
 #define RAY_TRACER_DIFFUSE_LIGHT_H
 

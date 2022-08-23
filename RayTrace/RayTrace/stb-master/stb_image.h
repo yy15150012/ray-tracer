@@ -2784,7 +2784,7 @@ static void stbi__idct_simd(stbi_uc *out, int out_stride, short data[64])
 // whether compilers actually get this is another story, sadly.
 #define dct_trn16(x, y) { int16x8x2_t t = vtrnq_s16(x, y); x = t.val[0]; y = t.val[1]; }
 #define dct_trn32(x, y) { int32x4x2_t t = vtrnq_s32(vreinterpretq_s32_s16(x), vreinterpretq_s32_s16(y)); x = vreinterpretq_s16_s32(t.val[0]); y = vreinterpretq_s16_s32(t.val[1]); }
-#define dct_trn64(x, y) { int16x8_t x0 = x; int16x8_t y0 = y; x = vcombine_s16(vget_low_s16(x0), vget_low_s16(y0)); y = vcombine_s16(vget_high_s16(x0), vget_high_s16(y0)); }
+#define dct_trn64(x, y) { int16x8_t x0 = x; int16x8_t z0 = y; x = vcombine_s16(vget_low_s16(x0), vget_low_s16(z0)); y = vcombine_s16(vget_high_s16(x0), vget_high_s16(z0)); }
 
       // pass 1
       dct_trn16(row0, row1); // a0b0a2b2a4b4a6b6

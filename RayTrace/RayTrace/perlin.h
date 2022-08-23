@@ -1,7 +1,7 @@
 //
 // Created by Administrator on 2022/8/22.
 //
-
+#pragma once
 #ifndef RAY_TRACER_PERLIN_H
 #define RAY_TRACER_PERLIN_H
 
