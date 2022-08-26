@@ -78,7 +78,7 @@ hittable_list final_scene() {
     boundary = make_shared<sphere>(point3(0, 0, 0), 5000, make_shared<dielectric>(1.5));
     objects.add(make_shared<constant_medium>(boundary, .0001, color(1, 1, 1)));
 
-    auto emat = make_shared<lambertian>(make_shared<image_texture>("earthmap.jpg"));
+    auto emat = make_shared<lambertian>(make_shared<image_texture>("D:\\RayTrace\\ray-tracer\\RayTrace\\RayTrace\\earthmap.jpg"));
     objects.add(make_shared<sphere>(point3(400, 200, 400), 100, emat));
     auto pertext = make_shared<noise_texture>(0.1);
     objects.add(make_shared<sphere>(point3(220, 280, 300), 80, make_shared<lambertian>(pertext)));
@@ -267,7 +267,7 @@ void lab8() {
     const auto aspect_ratio = 1.0;
     const auto image_width = 1600;
     const auto image_height = static_cast<int>(image_width / aspect_ratio);
-    const auto samples_per_pixel = 20;
+    const auto samples_per_pixel = 10000;
     const int max_depth = 50;
 
     //World
